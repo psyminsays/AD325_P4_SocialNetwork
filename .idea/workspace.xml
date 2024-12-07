@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ea6abd75-81ff-4a79-9c60-1d5cf9d2af0e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/java/GraphPackage/BasicGraphInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/GraphPackage/BasicGraphInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/GraphPackage/DirectedGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/GraphPackage/DirectedGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/GraphPackage/GraphAlgorithmsInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/GraphPackage/GraphAlgorithmsInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/GraphPackage/GraphInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/GraphPackage/GraphInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/GraphPackage/UndirectedGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/GraphPackage/UndirectedGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/GraphPackage/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/GraphPackage/Vertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/GraphPackage/VertexInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/GraphPackage/VertexInterface.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2ps48uQikHZJSgjq4jIptWlDS65" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.ProfileManagerTest.executor": "Coverage",
+    "Repository.Attach.Annotations": "true",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "profile-manager",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/xa1c/Git-School/AD325_P4_SocialNetwork",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/screenshots" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea6abd75-81ff-4a79-9c60-1d5cf9d2af0e" name="Changes" comment="" />
+      <created>1733541292223</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733541292223</updated>
+      <workItem from="1733541293368" duration="3641000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/AD325_P4_SocialNetwork$ProfileManagerTest.ic" NAME="ProfileManagerTest Coverage Results" MODIFIED="1733544695963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

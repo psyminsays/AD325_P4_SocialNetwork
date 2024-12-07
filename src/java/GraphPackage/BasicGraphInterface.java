@@ -1,5 +1,11 @@
 package GraphPackage;
 
+/**
+ * Interface for a basic graph.
+ *
+ * @author Eric Lloyd
+ * @param <T> The data type for the vertex label.
+ */
 public interface BasicGraphInterface<T>
 {
     /** Adds a given vertex to this graph.
