@@ -3,6 +3,12 @@ package GraphPackage;
 import ADTPackage.QueueInterface;
 import ADTPackage.StackInterface;
 
+/**
+ * Interface for graph algorithms.
+ *
+ * @author Eric Lloyd
+ * @param <T> The data type for the vertex label.
+ */
 public interface GraphAlgorithmsInterface<T>
 {
     /** Performs a breadth-first traversal of this graph.
