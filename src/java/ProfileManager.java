@@ -131,9 +131,9 @@ public class ProfileManager {
 
     /**
      * Display profile details starting from the given profile
-     * using depth first search.
+     * using breadth first search.
      *
-     * @param profile The profile to start from for depth first search.
+     * @param profile The profile to start from for breadth first search.
      */
     public void displayProfileDetailsBFSTraversal(Profile profile) {
 
