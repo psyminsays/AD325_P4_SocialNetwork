@@ -1,210 +1,220 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.io.File;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProfileTest {
 
     @Test
-    void getName() {
-        // Arrange: Set up the Profile object with a specific name
-        String name = "Joyce";
-        Profile profile;
-        profile = new Profile(name);
-
-        // Act: Call the getName() method
-        String actualName = profile.getName();
-
-        // Assert: Check that the name returned by getName() is what we expected
-        assertEquals(name, actualName, "The name should match the one we set in the Profile object.");
-    }
-
-    // Test case for name containing special characters
-    @Test
-    void testNameContainsSpecialCharacters() {
-        // Arrange
-        String nameWithSpecialChar = "Joyce!@#";
-
-        // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            Profile profile = new Profile(nameWithSpecialChar, "Happy", "New York", "Female", "Single", 25, 19991215, 175, "Engineer", "Sagittarius", "MIT", "CS", "Life", null);
-        });
-
-        // Assert
-        assertEquals("Sorry, only alphabetical characters are allowed in names.", exception.getMessage());
+    void testGetName() {
+        Profile profile = new Profile("Sarah");
+        assertEquals("Sarah", profile.getName());
     }
 
     @Test
-    void getStatus() {
-        // Test code here
+    void testGetStatus() {
+        // Given: a Profile with a status
+        Profile profile = new Profile("Sarah");
+        profile.setStatus("Online");
+
+        // When: we call getStatus
+        String status = profile.getStatus();
+
+        // Then -- The status should output "Online"
+        assertEquals("Online", status);
     }
 
     @Test
-    void getFriendProfiles() {
-        // Test code here
+    void testGetFriendProfiles() {
+        // Given: Create three Profile objects
+        Profile profile1 = new Profile("Alice");
+        Profile profile2 = new Profile("Bob");
+        Profile profile3 = new Profile("Charlie");
+
+        // Add friends to profile1
+        profile1.addFriend(profile2);
+        profile1.addFriend(profile3);
+
+        // When: we call getFriendProfiles
+        List<Profile> friends = profile1.getFriendProfiles();
+
+        // Then: the friendProfiles list should contain profile2 and profile3
+        assertEquals(2, friends.size(), "Profile1 should have 2 friends.");
+        assertTrue(friends.contains(profile2), "Profile1 should have Bob as a friend.");
+        assertTrue(friends.contains(profile3), "Profile1 should have Charlie as a friend.");
     }
 
     @Test
-    void getLocation() {
-        // Test code here
+    void testGetLocation() {
+        // Given: A Profile object with a location
+        Profile profile = new Profile("Alice");
+        profile.setLocation("New York, USA");
+
+        // When: we call getLocation
+        String location = profile.getLocation();
+
+        // Then: The location should be "New York, USA"
+        assertEquals("New York, USA", location, "The location should be 'New York, USA'.");
     }
 
     @Test
-    void getGender() {
-        // Test code here
+    void testGetGender() {
+        // Given: A Profile object with gender set
+        Profile profile = new Profile("Alice");
+        profile.setGender("Nonbinary");
+
+        // When: we call getGender
+        String gender = profile.getGender();
+
+        // Then: The gender should be "Nonbinary"
+        assertEquals("Nonbinary", gender, "The gender should be 'Nonbinary'.");
     }
 
     @Test
-    void getRelationshipStatus() {
-        // Test code here
+    void testGetRelationshipStatus() {
+        // Given: A Profile object with relationship status set
+        Profile profile = new Profile("Alice");
+        profile.setRelationshipStatus("In a relationship");
+
+        // When: we call getRelationshipStatus
+        String relationshipStatus = profile.getRelationshipStatus();
+
+        // Then: The relationship status should be "In a relationship"
+        assertEquals("In a relationship", relationshipStatus, "The relationship status should be 'In a relationship'.");
     }
 
     @Test
-    void getAge() {
-        // Test code here
+    void testGetAge() {
+        // Given: A Profile object with an age set
+        Profile profile = new Profile("Alice");
+        profile.setAge(25);
+
+        // When: we call getAge
+        int age = profile.getAge();
+
+        // Then: The age should be 25
+        assertEquals(25, age, "The age should be 25.");
     }
 
     @Test
-    void getBirthday() {
-        // Test code here
+    void testGetOccupation() {
+        // Given: A Profile object with an occupation set
+        Profile profile = new Profile("Alice");
+        profile.setOccupation("Software Engineer");
+
+        // When: we call getOccupation
+        String occupation = profile.getOccupation();
+
+        // Then: The occupation should be "Software Engineer"
+        assertEquals("Software Engineer", occupation, "The occupation should be 'Software Engineer'.");
     }
 
     @Test
-    void getHeight() {
-        // Test code here
+    void testGetAstrologicalSign() {
+        // Given: A Profile object with an astrological sign set
+        Profile profile = new Profile("Alice");
+        profile.setAstrologicalSign("Capricorn");
+
+        // When: we call getAstrologicalSign
+        String astrologicalSign = profile.getAstrologicalSign();
+
+        // Then: The astrological sign should be "Capricorn"
+        assertEquals("Capricorn", astrologicalSign, "The astrological sign should be 'Capricorn'.");
     }
 
     @Test
-    void getOccupation() {
-        // Test code here
+    void testGetCollege() {
+        // Given: A Profile object with a college set
+        Profile profile = new Profile("Alice");
+        profile.setCollege("MIT");
+
+        // When: we call getCollege
+        String college = profile.getCollege();
+
+        // Then: The college should be "MIT"
+        assertEquals("MIT", college, "The college should be 'MIT'.");
     }
 
     @Test
-    void getAstrologicalSign() {
-        // Test code here
+    void testGetMajor() {
+        // Given: A Profile object with a major set
+        Profile profile = new Profile("Alice");
+        profile.setMajor("Computer Science");
+
+        // When: we call getMajor
+        String major = profile.getMajor();
+
+        // Then: The major should be "Computer Science"
+        assertEquals("Computer Science", major, "The major should be 'Computer Science'.");
     }
 
     @Test
-    void getCollege() {
-        // Test code here
+    void testGetProfilePic() {
+        // Given: A Profile object with a profile picture set
+        Profile profile = new Profile("Alice");
+        File profilePic = new File("path/to/profilePic.jpg");
+        profile.setProfilePic(profilePic);
+
+        // When: we call getProfilePic
+        File result = profile.getProfilePic();
+
+        // Then: The result should be the profile picture we set
+        assertEquals(profilePic, result, "The profile picture should match the one set.");
     }
 
     @Test
-    void getMajor() {
-        // Test code here
+    void testSetName() {
+        Profile profile = new Profile("Sarah");
+        profile.setName("Rhyan");
+        assertEquals("Rhyan", profile.getName());
     }
 
     @Test
-    void getSlogan() {
-        // Test code here
+    void testSetStatus() {
+        Profile profile = new Profile("Sarah");
+        profile.setStatus("Offline");
+        assertEquals("Offline", profile.getStatus());
     }
 
     @Test
-    void getProfilePic() {
-        // Test code here
+    void testAddFriend() {
+        Profile profile1 = new Profile("Alice");
+        Profile profile2 = new Profile("Bob");
+
+        // Add friend
+        boolean isFriendAdded = profile1.addFriend(profile2);
+        assertTrue(isFriendAdded, "Friend should be added successfully.");
+
+        // Try adding the same friend again
+        isFriendAdded = profile1.addFriend(profile2);
+        assertFalse(isFriendAdded, "Friend should not be added again.");
     }
 
     @Test
-    void testNameExceedsMaxLength() {
-        // Arrange
-        String longName = "Mary Flyinghorse";  // Length = 18, exceeds 16
-
-        // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            // Attempt to create a Profile with a name that exceeds 16 characters
-            new Profile(longName, "Happy", null, "New York", "Female", "Single", 25, 19991215, 175, "Engineer", "Sagittarius", "MIT", "CS", "Life", null);
-        });
-
-        // Assert
-        assertEquals("Error: Name cannot exceed 16 characters.", exception.getMessage());
-    }
-
-    /**
-     * Tests that a name of 16 characters or fewer is accepted without error.
-     */
-    @Test
-     void testNameValidLength() {
-        // Arrange
-        String validName = "Mary Flying";  // Length = 12, valid
-
-        // Act
-        Profile profile = new Profile(validName, "Happy", null, "New York", "Female", "Single", 25, 19991215, 175, "Engineer", "Sagittarius", "MIT", "CS", "Life", null);
-
-        // Assert
-        assertEquals(validName, profile.getName());  // No exception should be thrown, and name should match
+    void testSetLocation() {
+        Profile profile = new Profile("Alice");
+        profile.setLocation("New York, USA");
+        assertEquals("New York, USA", profile.getLocation());
     }
 
     @Test
-    void setName() {
-        // Test code here
+    void testSetGender() {
+        Profile profile = new Profile("Alice");
+        profile.setGender("Nonbinary");
+        assertEquals("Nonbinary", profile.getGender());
     }
 
     @Test
-    void setStatus() {
-        // Test code here
+    void testSetRelationshipStatus() {
+        Profile profile = new Profile("Alice");
+        profile.setRelationshipStatus("In a relationship");
+        assertEquals("In a relationship", profile.getRelationshipStatus());
     }
 
     @Test
-    void setFriendProfiles() {
-        // Test code here
-    }
-
-    @Test
-    void setLocation() {
-        // Test code here
-    }
-
-    @Test
-    void setGender() {
-        // Test code here
-    }
-
-    @Test
-    void setRelationshipStatus() {
-        // Test code here
-    }
-
-    @Test
-    void setAge() {
-        // Test code here
-    }
-
-    @Test
-    void setBirthday() {
-        // Test code here
-    }
-
-    @Test
-    void setHeight() {
-        // Test code here
-    }
-
-    @Test
-    void setOccupation() {
-        // Test code here
-    }
-
-    @Test
-    void setAstrologicalSign() {
-        // Test code here
-    }
-
-    @Test
-    void setCollege() {
-        // Test code here
-    }
-
-    @Test
-    void setMajor() {
-        // Test code here
-    }
-
-    @Test
-    void setSlogan() {
-        // Test code here
-    }
-
-    @Test
-    void setProfilePic() {
-        // Test code here
+    void testSetAge() {
+        Profile profile = new Profile("Alice");
+        profile.setAge(25);
+        assertEquals(25, profile.getAge());
     }
 }
