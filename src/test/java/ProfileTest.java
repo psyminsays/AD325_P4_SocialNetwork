@@ -160,6 +160,8 @@ public class ProfileTest {
 
         // Then: The result should be the profile picture we set
         assertEquals(profilePic, result, "The profile picture should match the one set.");
+        File invalidProfilePic = new File("path/to/profilePic.txt");
+        assertThrows(IllegalArgumentException.class, () -> profile.setProfilePic(invalidProfilePic));
     }
 
     @Test
@@ -167,6 +169,7 @@ public class ProfileTest {
         Profile profile = new Profile("Sarah");
         profile.setName("Rhyan");
         assertEquals("Rhyan", profile.getName());
+        assertThrows(IllegalArgumentException.class, () -> profile.setName(""));
     }
 
     @Test
@@ -188,6 +191,7 @@ public class ProfileTest {
         // Try adding the same friend again
         isFriendAdded = profile1.addFriend(profile2);
         assertFalse(isFriendAdded, "Friend should not be added again.");
+        assertThrows(IllegalArgumentException.class, () -> profile1.addFriend(null));
     }
 
     @Test
@@ -216,5 +220,52 @@ public class ProfileTest {
         Profile profile = new Profile("Alice");
         profile.setAge(25);
         assertEquals(25, profile.getAge());
+        assertThrows(IllegalArgumentException.class, () -> profile.setAge(21));
+    }
+
+    @Test
+    void testSetAstrologicalSign() {
+        Profile profile = new Profile("Dan");
+        profile.setAstrologicalSign("Leo");
+        assertEquals("Leo", profile.getAstrologicalSign());
+        assertThrows(IllegalArgumentException.class, () -> profile.setAstrologicalSign("Scorpion"));
+    }
+
+    @Test
+    void testToString() {
+        Profile profile = new Profile("Sally");
+        Profile profile2 = new Profile("Rune");
+        Profile profile3 = new Profile("Erin");
+        profile.addFriend(profile2);
+        profile.addFriend(profile3);
+        assertEquals("Profile Details:\n" +
+                "Name: Sally\n" +
+                "Status: Offline\n" +
+                "Location: Unknown\n" +
+                "Gender: N/A\n" +
+                "Relationship Status: N/A\n" +
+                "Age: N/A\n" +
+                "Occupation: N/A\n" +
+                "Astrological Sign: N/A\n" +
+                "College: N/A\n" +
+                "Major: N/A\n" +
+                "Profile Picture: No picture\n" +
+                "Friends: \n" +
+                " - Rune\n" +
+                " - Erin\n", profile.toString());
+        Profile profile4 = new Profile("Kelly");
+        assertEquals("Profile Details:\n" +
+                "Name: Kelly\n" +
+                "Status: Offline\n" +
+                "Location: Unknown\n" +
+                "Gender: N/A\n" +
+                "Relationship Status: N/A\n" +
+                "Age: N/A\n" +
+                "Occupation: N/A\n" +
+                "Astrological Sign: N/A\n" +
+                "College: N/A\n" +
+                "Major: N/A\n" +
+                "Profile Picture: No picture\n" +
+                "Friends: None\n", profile4.toString());
     }
 }

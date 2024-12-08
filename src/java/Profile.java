@@ -1,18 +1,19 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Represents a user's profile with personal details and preferences.
  * This class contains attributes such as name, age, gender, relationship status, and more.
  * The profile can also include a list of friends and a profile picture.
+ *
+ * @author Psy Cisneros
  */
-
 public class Profile {
 
     // Attributes
     private String name;
-    private final long profileId = (long) (Math.random() * 10000000000L);
     private String status;
     private final List<Profile> friendProfiles;
     private String location;
@@ -29,7 +30,6 @@ public class Profile {
      * Constructs a new Profile with the specified details.
      *
      */
-
     public Profile(String name) {
         this.name = name;
         this.friendProfiles = new ArrayList<>();
@@ -43,7 +43,6 @@ public class Profile {
      *
      * @return the name of the user
      */
-
     public String getName() {
         return name;
     }
@@ -53,7 +52,6 @@ public class Profile {
      *
      * @return the status of the user
      */
-
     public String getStatus() {
         return status;
     }
@@ -63,7 +61,6 @@ public class Profile {
      *
      * @return the list of friends
      */
-
     public List<Profile> getFriendProfiles() {
         return friendProfiles;
     }
@@ -73,7 +70,6 @@ public class Profile {
      *
      * @return the location of the user
      */
-
     public String getLocation() {
         return location;
     }
@@ -92,7 +88,6 @@ public class Profile {
      *
      * @return the relationship status of the user
      */
-
     public String getRelationshipStatus() {
         return relationshipStatus;
     }
@@ -102,7 +97,6 @@ public class Profile {
      *
      * @return the age of the user
      */
-
     public int getAge() {
         return age;
     }
@@ -112,7 +106,6 @@ public class Profile {
      *
      * @return the occupation of the user
      */
-
     public String getOccupation() {
         return occupation;
     }
@@ -122,7 +115,6 @@ public class Profile {
      *
      * @return the astrological sign of the user
      */
-
     public String getAstrologicalSign() {
         return astrologicalSign;
     }
@@ -133,7 +125,6 @@ public class Profile {
      *
      * @return the college name of the user
      */
-
     public String getCollege() {
         return college;
     }
@@ -144,18 +135,15 @@ public class Profile {
      *
      * @return the major of the user
      */
-
     public String getMajor() {
         return major;
     }
-
 
     /**
      * Gets the profile picture file of the user.
      *
      * @return the profile picture file
      */
-
     public File getProfilePic() {
         return profilePic;
     }
@@ -167,13 +155,11 @@ public class Profile {
      *
      * @return a string with all profile details
      */
-
     public String toString() {
         // Start building the profile details string using simple concatenation
         String result = "Profile Details:\n";
 
         result += "Name: " + name + "\n";
-        result += "Profile ID: " + profileId + "\n";
         result += "Status: " + (status != null ? status : "N/A") + "\n";
         result += "Location: " + (location != null ? location : "N/A") + "\n";
         result += "Gender: " + (gender != null ? gender : "N/A") + "\n";
@@ -208,7 +194,6 @@ public class Profile {
      * @return true if the friend was added, false if the friend was already in the list
      * @throws IllegalArgumentException if the friend is null
      */
-
     public boolean addFriend(Profile friend) {
         if (friend == null) {
             throw new IllegalArgumentException("Cannot add a null profile.");
@@ -222,15 +207,14 @@ public class Profile {
 
     /**
      * Sets the name of the user.
-     * Throws an exception if the name exceeds 16 characters.
+     * Throws an exception if the name is empty.
      *
      * @param name the new name for the user
-     * @throws IllegalArgumentException if the name exceeds 16 characters
+     * @throws IllegalArgumentException if the name is empty.
      */
-
     public void setName(String name) {
         this.name = name;
-        if (name.length() > 16) throw new IllegalArgumentException("Error: Name cannot exceed 16 characters.");
+        if (name.isEmpty()) throw new IllegalArgumentException("Error: Name cannot be empty.");
     }
 
     /**
@@ -259,12 +243,12 @@ public class Profile {
     public void setStatus(String status) {
         this.status = status;
     }
+
     /**
      * Sets the relationship status of the user.
      *
      * @param relationshipStatus the new relationship status of the user
      */
-
     public void setRelationshipStatus(String relationshipStatus) {
         this.relationshipStatus = relationshipStatus;
     }
@@ -276,7 +260,6 @@ public class Profile {
      * @param age the new age of the user
      * @throws IllegalArgumentException if the age is less than 22
      */
-
     public void setAge(int age) {
         if (22 > age) {
             throw new IllegalArgumentException("Error: Must be 22 and older to use this website.");
@@ -289,7 +272,6 @@ public class Profile {
      *
      * @param occupation the new occupation of the user
      */
-
     public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
@@ -298,9 +280,27 @@ public class Profile {
      * Sets the astrological sign of the user.
      *
      * @param astrologicalSign the new astrological sign of the user
+     * @throws IllegalArgumentException if not a valid astrological sign
      */
-
     public void setAstrologicalSign(String astrologicalSign) {
+        ArrayList<String> astrologicalSigns = new ArrayList<>(
+                Arrays.asList("Scorpio",
+                              "Leo",
+                              "Pisces",
+                              "Capricorn",
+                              "Taurus",
+                              "Aries",
+                              "Virgo",
+                              "Gemini",
+                              "Cancer",
+                              "Sagittarius",
+                              "Libra",
+                              "Aquarius"
+                            )
+        );
+        if (!astrologicalSigns.contains(astrologicalSign)) {
+            throw new IllegalArgumentException("Not a valid astrological sign");
+        }
         this.astrologicalSign = astrologicalSign;
     }
 
@@ -309,7 +309,6 @@ public class Profile {
      *
      * @param college the new college name of the user
      */
-
     public void setCollege(String college) {
         this.college = college;
     }
@@ -319,7 +318,6 @@ public class Profile {
      *
      * @param major the new major of the user
      */
-
     public void setMajor(String major) {
         this.major = major;
     }
@@ -328,9 +326,13 @@ public class Profile {
      * Sets the profile picture file of the user.
      *
      * @param profilePic the new profile picture file for the user
+     * @throws IllegalArgumentException if File is not a .jpg, .jpeg, .png
      */
     public void setProfilePic(File profilePic) {
+        String profilePicPath = profilePic.getName().toLowerCase();
+        if (!profilePicPath.endsWith(".jpg") && !profilePicPath.endsWith(".png") && !profilePicPath.endsWith(".jpeg")) {
+                throw new IllegalArgumentException("File MUST be a .jpg, .jpeg or .png");
+        }
         this.profilePic = profilePic;
     }
-
 }
