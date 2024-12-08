@@ -2,6 +2,13 @@ package GraphPackage;
 
 import java.util.Iterator;
 
+/**
+ * Interface for vertices.
+ *
+ * @author Eric Lloyd
+ * @author Aune Mitchell
+ * @param <T> The data type for the vertex label.
+ */
 public interface VertexInterface<T>
 {
     /** Gets this vertex's label.
@@ -34,6 +41,14 @@ public interface VertexInterface<T>
      @param endVertex   A vertex in the graph that ends the edge.
      @return  True if the edge is added, or false if not. */
     public boolean connect(VertexInterface<T> endVertex);
+
+    /**
+     * Disconnects this vertex and a given vertex.
+     *
+     * @param endVertex The end of the edge.
+     * @return True if the edge is removed, false if not.
+     */
+    public boolean disconnect(VertexInterface<T> endVertex);
 
     /** Creates an iterator of this vertex's neighbors by following
      all edges that begin at this vertex.
