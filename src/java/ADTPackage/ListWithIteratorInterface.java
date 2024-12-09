@@ -9,5 +9,9 @@ import java.util.Iterator;
 */
 public interface ListWithIteratorInterface<T> extends ListInterface<T>, Iterable<T>
 {
+   /**
+    * Getting the iterator.
+    * @return the iterator.
+    */
    public Iterator<T> getIterator();
 } // end ListWithIteratorInterface

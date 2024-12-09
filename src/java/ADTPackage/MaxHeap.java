@@ -15,12 +15,19 @@ implements MaxHeapInterface<T>
    private boolean integrityOK = false;
    private static final int DEFAULT_CAPACITY = 5; // NB: Changed to 5 from 25 for testing convenience
    private static final int MAX_CAPACITY = 10000;
-   
+
+    /**
+     * Constructor for MaxHeap.
+     */
    public MaxHeap()
    {
       this(DEFAULT_CAPACITY); // Call next constructor
    } // end default constructor
 
+    /**
+     * Constructor for MaxHeap with capacity.
+     * @param initialCapacity the initial capacity.
+     */
 	public MaxHeap(int initialCapacity)
 	{
    // NOTE: This code deviates from the book somewhat in that checkCapacity throws an exception
@@ -36,6 +43,10 @@ implements MaxHeapInterface<T>
 		integrityOK = true;
 	} // end constructor
 
+    /**
+     * Constructor for MaxHeap including entries.
+     * @param entries entries for MaxHeap.
+     */
    public MaxHeap(T[] entries)
    {
       this(entries.length); // Call other constructor
@@ -50,7 +61,8 @@ implements MaxHeapInterface<T>
       for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--)
          reheap(rootIndex);
    } // end constructor
-   
+
+    /** {@inheritDoc} */
    public void add(T newEntry)
    {
       checkIntegrity();        // Ensure initialization of data fields
@@ -68,6 +80,7 @@ implements MaxHeapInterface<T>
       ensureCapacity();
    } // end add
 
+    /** {@inheritDoc} */
    public T removeMax()
    {
       checkIntegrity();             // Ensure initialization of data fields
@@ -84,6 +97,7 @@ implements MaxHeapInterface<T>
       return root;
    } // end removeMax
 
+    /** {@inheritDoc} */
 	public T getMax()
 	{
 		checkIntegrity();
@@ -95,16 +109,19 @@ implements MaxHeapInterface<T>
 		return root;
 	} // end getMax
 
+    /** {@inheritDoc} */
 	public boolean isEmpty()
 	{
 		return lastIndex < 1;
 	} // end isEmpty
 
+    /** {@inheritDoc} */
 	public int getSize()
 	{
 		return lastIndex;
 	} // end getSize
 
+    /** {@inheritDoc} */
 	public void clear()
 	{
 		checkIntegrity();
@@ -117,6 +134,10 @@ implements MaxHeapInterface<T>
 		lastIndex = 0;
 	} // end clear
 
+    /**
+     * Reorganizing the MaxHeap.
+     * @param rootIndex the root index.
+     */
    // Precondition: checkIntegrity has been called.
    private void reheap(int rootIndex)
    {
@@ -148,8 +169,10 @@ implements MaxHeapInterface<T>
       heap[rootIndex] = orphan;
    } // end reheap
 
-	// Doubles the capacity of the array heap if it is full.
-	// Precondition: checkIntegrity has been called.
+    /**
+     * Doubles the capacity of the array heap if it is full.
+     * Precondition: checkIntegrity has been called.
+     */
 	private void ensureCapacity()
 	{
       int numberOfEntries = lastIndex;
@@ -162,13 +185,21 @@ implements MaxHeapInterface<T>
       } // end if
    } // end ensureCapacity
 
-	// Throws an exception if this object is corrupt.
+    /**
+     * Throws an exception if this object is corrupt.
+     * @throws SecurityException if object is corrupt.
+     */
 	private void checkIntegrity()
 	{
 		if (!integrityOK)
 			throw new SecurityException ("MaxHeap object is corrupt.");
 	} // end checkIntegrity
 
+    /**
+     *Ensures that the client requests a capacity
+     * that is not too small or too large.
+     * @param capacity capacity of the Heap.
+     */
 	// Ensures that the client requests a capacity
 	// that is not too small or too large.
 	private void checkCapacity(int capacity)

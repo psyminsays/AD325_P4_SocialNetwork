@@ -9,38 +9,47 @@ package ADTPackage;
 public final class HeapPriorityQueue<T extends Comparable<? super T>>
                    implements PriorityQueueInterface<T>
 {
-	private MaxHeapInterface<T> pq;	
-	
+	private MaxHeapInterface<T> pq;
+
+	/**
+	 * Constructor for Heap Priority Queue.
+	 */
 	public HeapPriorityQueue()
 	{
 		pq = new MaxHeap<>();
 	} // end default constructor
-	
+
+	/** {@inheritDoc} */
 	public void add(T newEntry)
 	{ 
 		pq.add(newEntry);
 	} // end add
 
+	/** {@inheritDoc} */
 	public T remove()
 	{
 		return pq.removeMax();
 	} // end remove
-		
+
+	/** {@inheritDoc} */
 	public T peek()
 	{
 		return pq.getMax();
 	} // end peek
 
+	/** {@inheritDoc} */
 	public boolean isEmpty()
 	{
 		return pq.isEmpty();
 	} // end isEmpty
-	
+
+	/** {@inheritDoc} */
 	public int getSize()
 	{
 		return pq.getSize();
 	} // end getSize
 
+	/** {@inheritDoc} */
 	public void clear()
 	{
 		pq.clear();
