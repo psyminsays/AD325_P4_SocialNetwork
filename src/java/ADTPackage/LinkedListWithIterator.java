@@ -13,17 +13,22 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
 {
    private Node firstNode;
    private int  numberOfEntries;;
-   
+
+    /**
+     * Constructor for linked list with iterator.
+     */
    public LinkedListWithIterator()
    {
       initializeDataFields();
    } // end default constructor
 
+    /** {@inheritDoc} */
 	public void clear()
 	{
       initializeDataFields();
 	} // end clear
- 
+
+    /** {@inheritDoc} */
 	public void add(T newEntry) 	               // OutOfMemoryError possible
 	{
 		Node newNode = new Node(newEntry);
@@ -39,6 +44,7 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
 		numberOfEntries++;
 	}  // end add
 
+    /** {@inheritDoc} */
    public void add(int newPosition, T newEntry) // OutOfMemoryError possible
 	{
  		if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1))
@@ -63,7 +69,7 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       else
          throw new IndexOutOfBoundsException("Illegal position given to add operation.");
    } // end add
-
+    /** {@inheritDoc} */
 	public T remove(int givenPosition)
 	{
       T result = null;                          // Return value
@@ -93,6 +99,7 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
          throw new IndexOutOfBoundsException("Illegal position given to remove operation.");
 	} // end remove
 
+    /** {@inheritDoc} */
 	public T replace(int givenPosition, T newEntry)
 	{
       if ((givenPosition >= 1) && (givenPosition <= numberOfEntries))
@@ -107,7 +114,8 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
 		else
          throw new IndexOutOfBoundsException("Illegal position given to replace operation.");
    } // end replace
-   
+
+    /** {@inheritDoc} */
    public T getEntry(int givenPosition)
    {
 		if ((givenPosition >= 1) && (givenPosition <= numberOfEntries))
@@ -118,7 +126,8 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       else
          throw new IndexOutOfBoundsException("Illegal position given to getEntry operation.");
    } // end getEntry
-   
+
+    /** {@inheritDoc} */
    public T[] toArray()
    {
       // The cast is safe because the new array contains null entries
@@ -137,6 +146,7 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       return result;
    } // end toArray
 
+    /** {@inheritDoc} */
 	public boolean contains(T anEntry)
 	{
 		boolean found = false;
@@ -153,11 +163,13 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
 		return found;
 	} // end contains
 
+    /** {@inheritDoc} */
    public int getLength()
    {
       return numberOfEntries;
    } // end getLength
 
+    /** {@inheritDoc} */
    public boolean isEmpty()
    {
       boolean result;
@@ -175,27 +187,42 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
 
       return result;
    } // end isEmpty
-   
+
+    /**
+     * Getting iterator for linked list.
+      * @return iterator for linked list.
+     */
    public Iterator<T> iterator()
    {
       return new IteratorForLinkedList();
    } // end iterator
-   
+
+    /**
+     * Getting iterator for linked list.
+      * @return iterator for linked list.
+     */
    public Iterator<T> getIterator()
    {
       return iterator();
    } // end getIterator
-   
-   // Initializes the class's data fields to indicate an empty list.
+
+    /**
+     *  Initializes the class's data fields to indicate an empty list.
+      */
    private void initializeDataFields()
    {
       firstNode = null;
       numberOfEntries = 0;
    } // end initializeDataFields
-   
-   // Returns a reference to the node at a given position.
-   // Precondition: The chain is not empty;
-   //               1 <= givenPosition <= numberOfEntries.
+
+    /**
+     * Returns a reference to the node at a given position.
+     * Precondition: The chain is not empty;
+     * 1 <= givenPosition <= numberOfEntries.
+     *
+     * @param givenPosition the position of the Node.
+     * @return the Node at the given position.
+     */
    private Node getNodeAt(int givenPosition)
    {
       // Assertion: (firstNode != null) &&
@@ -209,16 +236,27 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
       // Assertion: currentNode != null
       return currentNode;
    } // end getNodeAt
-   
-   private class IteratorForLinkedList implements Iterator<T>
+
+    /**
+     * Implements iterator for linked list.
+     */
+    private class IteratorForLinkedList implements Iterator<T>
    {
       private Node nextNode;
-      
-      private IteratorForLinkedList()
+
+       /**
+        * Constructor for iterator for linked list.
+        */
+       private IteratorForLinkedList()
       {
          nextNode = firstNode;
       } // end default constructor
-      
+
+       /**
+        * Getting the next Node's data.
+         * @return the next Node's data.
+        * @throws NoSuchElementException if there is no next Node.
+        */
       public T next()
       {
          T result;
@@ -233,50 +271,86 @@ public class LinkedListWithIterator<T> implements ListWithIteratorInterface<T>
          return result; // Return next entry in iteration
       } // end next
 
+       /**
+        * Checking if there is a next Node.
+         * @return true if there is a next Node, false otherwise.
+        */
       public boolean hasNext()
       {
          return nextNode != null;
       } // end hasNext
 
-      public void remove()
+       /**
+        * Removing the Node.
+        * @throws UnsupportedOperationException if called.
+         */
+       public void remove()
       {
          throw new UnsupportedOperationException("remove() is not supported " +
                                                  "by this iterator");
       } // end remove
    } // end IteratorForLinkedList
-   
+
+    /**
+     * Node that contains data and next Node.
+      */
    private class Node
    {
       private T    data; // Entry in list
       private Node next; // Link to next node
-      
+
+       /**
+        * Constructor for Node.
+         * @param dataPortion data for the Node.
+        */
       private Node(T dataPortion)
       {
          data = dataPortion;
          next = null;
       } // end constructor
-      
+
+       /**
+        * Constructor with data and next Node.
+         * @param dataPortion data in the Node.
+        * @param nextNode the next Node.
+        */
       private Node(T dataPortion, Node nextNode)
       {
          data = dataPortion;
          next = nextNode;
       } // end constructor
-      
+
+       /**
+        * Getting the data from the Node.
+         * @return the data from the Node.
+        */
       private T getData()
       {
          return data;
       } // end getData
-      
+
+       /**
+        * Setting the data for the Node.
+         * @param newData new data for the Node.
+        */
       private void setData(T newData)
       {
          data = newData;
       } // end setData
-      
+
+       /**
+        * Getting the next Node.
+         * @return the next Node.
+        */
       private Node getNextNode()
       {
          return next;
       } // end getNextNode
-      
+
+       /**
+        * Setting the next Node.
+         * @param nextNode the next Node.
+        */
       private void setNextNode(Node nextNode)
       {
          next = nextNode;
