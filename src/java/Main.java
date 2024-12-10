@@ -502,9 +502,7 @@ public class Main {
     }
 
     /**
-     * Method to delete another profile.
-     *
-     * @throws IllegalArgumentException if input contains invalid characters.
+     * Method to delete another profile from user's friends list.
      *
      */
     private static void deleteProfile() {
