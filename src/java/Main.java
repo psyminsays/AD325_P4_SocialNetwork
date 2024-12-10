@@ -72,7 +72,8 @@ public class Main {
                     switchCurrentUser();
                     break;
                 case 11:
-                    logout();
+                    System.out.println("Logging out...");
+                    System.exit(0);  // This will end the program
             }
         }
     }
@@ -474,7 +475,7 @@ public class Main {
         List<Profile> friends = currentProfile.getFriendProfiles();
 
         if (friends.isEmpty()) {
-            System.out.println(currentProfile.getName() + " has no friends to view,");
+            System.out.println(currentProfile.getName() + "\n" + "has no friends to view.");
             return;
         }
 
@@ -502,21 +503,53 @@ public class Main {
 
     /**
      * Method to delete another profile.
+     *
+     * @throws IllegalArgumentException if input contains invalid characters.
+     *
      */
     private static void deleteProfile() {
-        System.out.println("Are you sure you want to delete the profile " + currentProfile.getName() + "?");
-        System.out.println("Enter 'Yes' to confirm or 'No' to cancel.");
+        // Display all profiles
+        profileManager.displayProfiles();
 
-        String confirmation = getStringInput(); // Scanner to get user input
+        // Get user input for profile selection
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of the profile to delete: ");
+        int profileIndex = Integer.parseInt(scanner.nextLine()) - 1;
 
-        if (confirmation.equals("Yes")) {
-            profileManager.removeProfile(currentProfile);
-            System.out.println("Profile " + currentProfile.getName() + " has been deleted.");
-            currentProfile = null; // Reset current profile
-        } else {
-            System.out.println("\nProfile deletion cancelled.");
+        // Validate input
+        if (profileIndex < 0 || profileIndex >= profileManager.getListOfProfiles().size()) {
+            System.out.println("Invalid selection.");
+            return;
         }
 
+        Profile selectedProfile = profileManager.getListOfProfiles().get(profileIndex);
+
+        // If selected profile is the current profile, prompt to switch
+        if (selectedProfile.equals(currentProfile)) {
+            System.out.println("You cannot delete the current profile.");
+            System.out.println("Please select a different profile to switch to.");
+
+            // Get a valid profile to switch to
+            int switchIndex = -1;
+            while (switchIndex < 0 || switchIndex >= profileManager.getListOfProfiles().size() || profileManager.getListOfProfiles().get(switchIndex).equals(currentProfile)) {
+                System.out.print("Enter the number of the profile to switch to: ");
+                switchIndex = Integer.parseInt(scanner.nextLine()) - 1;
+            }
+
+            currentProfile = profileManager.getListOfProfiles().get(switchIndex);
+            System.out.println("You have switched to " + currentProfile.getName() + " as the current profile.");
+        }
+
+        // Confirm deletion
+        System.out.print("Are you sure you want to delete " + selectedProfile.getName() + "? (Yes/No): ");
+        String confirmation = scanner.nextLine().trim().toLowerCase();
+
+        if ("yes".equals(confirmation)) {
+            profileManager.removeProfile(selectedProfile);
+            System.out.println("Profile " + selectedProfile.getName() + " has been deleted.");
+        } else {
+            System.out.println("Profile deletion cancelled.");
+        }
     }
 
     /**
@@ -539,7 +572,7 @@ public class Main {
             return;
         }
 
-        System.out.println("Select a profile to switch to: ");
+        System.out.println("\nSelect a profile to switch to: ");
         for (int i = 0; i < allProfiles.size(); i++) {
             System.out.println(i + 1 + ". " + allProfiles.get(i).getName());
         }
@@ -547,13 +580,5 @@ public class Main {
         int choice = getUserIntInput(1, allProfiles.size());
         currentProfile = allProfiles.get(choice - 1);
         System.out.println("You are now logged in as " + currentProfile.getName());
-    }
-
-    /**
-     * Log out of the program.
-     */
-    private static void logout() {
-        System.out.println("Logging out...");
-        System.exit(0);  // This will end the program
     }
 }
