@@ -73,7 +73,7 @@ public class Main {
                     break;
                 case 11:
                     System.out.println("Logging out...");
-                    System.exit(0);  // This will end the program
+                    break;
             }
         }
     }
@@ -508,53 +508,65 @@ public class Main {
      *
      */
     private static void deleteProfile() {
-        // Display all profiles
-        profileManager.displayProfiles();
+            // Display all profiles
+            profileManager.displayProfiles();
 
-        // Get user input for profile selection
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the number of the profile to delete: ");
-        int profileIndex = Integer.parseInt(scanner.nextLine()) - 1;
+            // Get user input for profile selection (validated within the range using getUserIntInput)
+            System.out.print("Enter the number of the profile to delete: ");
+            int profileListSize = profileManager.getListOfProfiles().size();
+            int profileIndex = getUserIntInput(1, profileListSize) - 1; // Adjust to zero-based index
 
-        // Validate input
-        if (profileIndex < 0 || profileIndex >= profileManager.getListOfProfiles().size()) {
-            System.out.println("Invalid selection.");
-            return;
-        }
+            Profile selectedProfile = profileManager.getListOfProfiles().get(profileIndex);
 
-        Profile selectedProfile = profileManager.getListOfProfiles().get(profileIndex);
+            // If selected profile is the current profile, prompt to switch
+            if (selectedProfile.equals(currentProfile)) {
+                System.out.println("You cannot delete the current profile.");
+                System.out.println("Please select a different profile to switch to.");
 
-        // If selected profile is the current profile, prompt to switch
-        if (selectedProfile.equals(currentProfile)) {
-            System.out.println("You cannot delete the current profile.");
-            System.out.println("Please select a different profile to switch to.");
+                // Get a valid profile to switch to (exclude the current profile)
+                int switchIndex = -1;
+                while (switchIndex < 0 || switchIndex >= profileListSize || profileManager.getListOfProfiles().get(switchIndex).equals(currentProfile)) {
+                    System.out.print("Enter the number of the profile to switch to (excluding the current profile): ");
 
-            // Get a valid profile to switch to
-            int switchIndex = -1;
-            while (switchIndex < 0 || switchIndex >= profileManager.getListOfProfiles().size() || profileManager.getListOfProfiles().get(switchIndex).equals(currentProfile)) {
-                System.out.print("Enter the number of the profile to switch to: ");
-                switchIndex = Integer.parseInt(scanner.nextLine()) - 1;
+                    // Display the profiles, excluding the current profile
+                    int index = 1;
+                    for (Profile profile : profileManager.getListOfProfiles()) {
+                        if (!profile.equals(currentProfile)) {
+                            System.out.println(index + ". " + profile.getName());
+                            index++;
+                        }
+                    }
+
+                    switchIndex = getUserIntInput(1, profileListSize) - 1; // Adjust to zero-based index
+                }
+
+                currentProfile = profileManager.getListOfProfiles().get(switchIndex);
+                System.out.println("You have switched to " + currentProfile.getName() + " as the current profile.");
             }
 
-            currentProfile = profileManager.getListOfProfiles().get(switchIndex);
-            System.out.println("You have switched to " + currentProfile.getName() + " as the current profile.");
+            // Confirm deletion with strict validation (Only "yes" or "no")
+            String confirmation = "";
+            while (!confirmation.equals("yes") && !confirmation.equals("no")) {
+                System.out.print("Are you sure you want to delete " + selectedProfile.getName() + "? (yes/no): ");
+                Scanner scanner = new Scanner(System.in);
+                confirmation = scanner.nextLine().trim().toLowerCase();
+
+                if (!confirmation.equals("yes") && !confirmation.equals("no")) {
+                    System.out.println("Invalid input. Please type 'yes' or 'no' to confirm.");
+                }
+            }
+
+            if (confirmation.equals("yes")) {
+                profileManager.removeProfile(selectedProfile);
+                System.out.println("Profile " + selectedProfile.getName() + " has been deleted.");
+            } else {
+                System.out.println("Profile deletion cancelled.");
+            }
         }
 
-        // Confirm deletion
-        System.out.print("Are you sure you want to delete " + selectedProfile.getName() + "? (Yes/No): ");
-        String confirmation = scanner.nextLine().trim().toLowerCase();
-
-        if ("yes".equals(confirmation)) {
-            profileManager.removeProfile(selectedProfile);
-            System.out.println("Profile " + selectedProfile.getName() + " has been deleted.");
-        } else {
-            System.out.println("Profile deletion cancelled.");
-        }
-    }
-
-    /**
-     * Add a new profile.
-     */
+        /**
+         * Add a new profile.
+         */
     private static void addNewProfile() {
         Profile newProfile = createProfile();
         profileManager.addProfile(newProfile);
