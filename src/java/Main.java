@@ -73,7 +73,7 @@ public class Main {
                     break;
                 case 11:
                     System.out.println("Logging out...");
-                    break;
+                    exit = true;
             }
         }
     }
