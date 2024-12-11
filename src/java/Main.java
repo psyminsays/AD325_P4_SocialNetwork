@@ -501,6 +501,10 @@ public class Main {
         }
     }
 
+    /**
+     * Deleting a friend off of the current user's friend list.
+     *
+     */
     private static void deleteProfile() {
         // Get the list of profiles and the list size
         List<Profile> profileList = profileManager.getListOfProfiles();
