@@ -166,4 +166,13 @@ public class ProfileManager {
             System.out.println("Profile not found in social graph.");
         }
     }
+
+    /**
+     * Gets the list of profiles.
+     *
+     * @return the list of profiles in the graph.
+     */
+    public ArrayList<Profile> getListOfProfiles() {
+        return profiles;
+    }
 }
