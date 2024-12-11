@@ -386,7 +386,7 @@ public class Main {
      */
     public static void addAFriend() {
         // Gets the list of profiles
-        ArrayList<Profile> profiles = profileManager.getListOfProfiles();
+        List<Profile> profiles = profileManager.getListOfProfiles();
         int profilesSize = profiles.size();
 
         // If there's more than 1 profile
@@ -501,85 +501,104 @@ public class Main {
         }
     }
 
-    private static void deleteProfile() {
+    /**
+     * Delete a friend off the current user's friend list.
+     */
+    public static void deleteProfile() {
         Scanner scanner = new Scanner(System.in);
 
-        // Ask the user if they want to delete a friend
-        System.out.println("Do you want to delete a friend from your list?");
-        System.out.println("1. Yes");
-        System.out.println("2. No, ask if you want to delete your own profile");
-        System.out.println("3. Exit");
+        // Display the options: delete friend or return to main menu
+        System.out.println("Do you want to delete a friend from your profile?");
+        System.out.println("1. Yes, delete a friend.");
+        System.out.println("2. No, return to main menu.");
+        String option = scanner.nextLine().trim();
 
-        String input = scanner.nextLine().trim().toLowerCase();
-
-        switch (input) {
+        switch (option) {
             case "1":
-                // Ask for confirmation before deleting a friend
-                System.out.print("Are you sure you want to delete a friend from your list? (yes/no): ");
-                String confirmation = scanner.nextLine().trim().toLowerCase();
+                // Proceed with deleting a friend
+                // Display list of friends (or profiles)
+                List<Profile> profiles = profileManager.getListOfProfiles();
 
-                if (confirmation.equals("yes")) {
-                    System.out.print("Enter the name of the friend to delete: ");
-                    String friendName = scanner.nextLine().trim();
+                // If no profiles exist, exit
+                if (profiles == null || profiles.isEmpty()) {
+                    System.out.println("No profiles to delete.");
+                    return;
+                }
 
-                    boolean friendDeleted;
-                    if (profileManager.removeProfile(currentProfile)) friendDeleted = true;
-                    else friendDeleted = false;
-                    if (friendDeleted) {
-                        System.out.println(friendName + " has been deleted from your friends list.");
+                // Ask the user to choose a friend (by number or name)
+                System.out.print("Enter the number or name of the friend you want to delete: ");
+                String input = scanner.nextLine().trim();
+
+                // Check if input is a valid number (1, 2, 3, etc.)
+                try {
+                    int profileIndex = Integer.parseInt(input);
+                    if (profileIndex >= 1 && profileIndex <= profiles.size()) {
+                        Profile profileToDelete = profiles.get(profileIndex - 1);
+                        System.out.print("Are you sure you want to delete the profile of " + profileToDelete.getName() + "? (yes/no): ");
+                        String confirmation = scanner.nextLine().trim().toLowerCase();
+
+                        // Confirm deletion
+                        switch (confirmation) {
+                            case "yes":
+                                try {
+                                    profileManager.removeProfile(profileToDelete);
+                                    System.out.println("Profile " + profileToDelete.getName() + " has been deleted successfully.");
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println("Error: " + e.getMessage());
+                                }
+                                break;
+                            case "no":
+                                System.out.println("Profile deletion cancelled.");
+                                break;
+                            default:
+                                System.out.println("Invalid confirmation. Profile deletion cancelled.");
+                                break;
+                        }
                     } else {
-                        System.out.println("Failed to delete " + friendName + ". They may not be in your friends list.");
+                        System.out.println("Invalid profile number.");
                     }
-                } else {
-                    System.out.println("Profile deletion cancelled.");
+                } catch (NumberFormatException e) {
+                    // If the input is a name instead of a number
+                    boolean profileFound = false;
+                    for (Profile profile : profiles) {
+                        if (profile.getName().equalsIgnoreCase(input)) {
+                            profileFound = true;
+                            System.out.print("Are you sure you want to delete the profile of " + profile.getName() + "? (yes/no): ");
+                            String confirmation = scanner.nextLine().trim().toLowerCase();
+
+                            switch (confirmation) {
+                                case "yes":
+                                    try {
+                                        profileManager.removeProfile(profile);
+                                        System.out.println("Profile " + profile.getName() + " has been deleted successfully.");
+                                    } catch (IllegalArgumentException e1) {
+                                        System.out.println("Error: " + e1.getMessage());
+                                    }
+                                    break;
+                                case "no":
+                                    System.out.println("Profile deletion cancelled.");
+                                    break;
+                                default:
+                                    System.out.println("Invalid confirmation. Profile deletion cancelled.");
+                                    break;
+                            }
+                            break;
+                        }
+                    }
+
+                    if (!profileFound) {
+                        System.out.println("Profile not found in the list.");
+                    }
                 }
                 break;
 
             case "2":
-                // Ask if the user wants to delete their own profile
-                System.out.println("Do you want to delete your own profile?");
-                System.out.println("1. Yes");
-                System.out.println("2. No, return to main menu");
-                String deleteOwnProfileChoice = scanner.nextLine().trim().toLowerCase();
-
-                switch (deleteOwnProfileChoice) {
-                    case "1":
-                        // Confirm deletion of user's own profile
-                        System.out.print("Are you sure you want to delete your profile? (yes/no): ");
-                        String ownProfileConfirmation = scanner.nextLine().trim().toLowerCase();
-
-                        if (ownProfileConfirmation.equals("yes")) {
-                            // Assuming `profileManager.removeProfile()` deletes the current profile
-                            boolean ownProfileDeleted = profileManager.removeProfile(currentProfile);
-                            if (ownProfileDeleted) {
-                                System.out.println("Your profile has been deleted.");
-                                // Optionally, you may need to handle log out or app shutdown here
-                            } else {
-                                System.out.println("Failed to delete your profile.");
-                            }
-                        } else {
-                            System.out.println("Profile deletion cancelled.");
-                        }
-                        break;
-
-                    case "2":
-                        // Return to main menu
-                        System.out.println("Returning to the main menu.");
-                        break;
-
-                    default:
-                        System.out.println("Invalid option. Returning to the main menu.");
-                        break;
-                }
-                break;
-
-            case "3":
-                // Exit
-                System.out.println("Exiting.");
+                // Exit to the main menu
+                System.out.println("Returning to the main menu.");
                 break;
 
             default:
-                System.out.println("Invalid option. Exiting.");
+                System.out.println("Invalid option. Returning to the main menu.");
                 break;
         }
     }
